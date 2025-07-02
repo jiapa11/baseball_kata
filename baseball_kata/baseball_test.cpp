@@ -20,11 +20,8 @@ TEST_F(BaseballGameFixture, ThrowExceptionInvalidInput) {
     assertIllegalArgument(string{ "12ss" });
     assertIllegalArgument(string{ "1" });
     assertIllegalArgument(string{ "aaa" });
+    assertIllegalArgument(string{ "121" });
 }
-
-//TEST_F(BaseballGameFixture, ThrowExceptionInvalidChar) {
-//    assertIllegalArgument(string{ "12s" });
-//}
 
 int main() {
     ::testing::InitGoogleTest();
