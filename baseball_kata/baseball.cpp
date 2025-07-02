@@ -4,14 +4,24 @@
 using namespace std;
 using std::string;
 
+struct GuessResult {
+    bool solved;
+    int strikes, balls;
+};
+
 class Baseball {
 public:
-    void guess(const string &userGuess) {
-        assertIllegalArgument(userGuess);
+    explicit Baseball(const std::string& answer) : answer{ answer } {};
+
+    GuessResult guess(const std::string &userGuess) {
+        assertInvalidArgument(userGuess);
+        if (answer == userGuess) return { true, 3, 0 };
     }
 
 private:
-    void assertIllegalArgument(const std::string& userGuess)
+    std::string answer;
+
+    void assertInvalidArgument(const std::string& userGuess)
     {
         if (userGuess.length() != 3) {
             throw std::length_error("Must be exactly three letters");

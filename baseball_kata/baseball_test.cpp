@@ -3,8 +3,8 @@
 
 class BaseballGameFixture : public testing::Test {
 public:
-    Baseball game;
-    void assertIllegalArgument(string userGuess) {
+    Baseball game{ "123" };
+    void assertInvalidArgument(string userGuess) {
         try {
             game.guess(userGuess);
             FAIL();
@@ -15,13 +15,22 @@ public:
 };
 
 TEST_F(BaseballGameFixture, ThrowExceptionInvalidInput) {
-    assertIllegalArgument(string{ "12" });
-    assertIllegalArgument(string{ "12s" });
-    assertIllegalArgument(string{ "12ss" });
-    assertIllegalArgument(string{ "1" });
-    assertIllegalArgument(string{ "aaa" });
-    assertIllegalArgument(string{ "121" });
+    assertInvalidArgument(string{ "12" });
+    assertInvalidArgument(string{ "12s" });
+    assertInvalidArgument(string{ "12ss" });
+    assertInvalidArgument(string{ "1" });
+    assertInvalidArgument(string{ "aaa" });
+    assertInvalidArgument(string{ "121" });
 }
+
+TEST_F(BaseballGameFixture, ReturnValidResult) {
+    GuessResult result = game.guess("123");
+
+    EXPECT_TRUE(result.solved);
+    EXPECT_EQ(3, result.strikes);
+    EXPECT_EQ(0, result.balls);    
+}
+
 
 int main() {
     ::testing::InitGoogleTest();
